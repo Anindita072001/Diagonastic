@@ -45,6 +45,9 @@
 			.nav-link{
 				font-size: 19px!important;
 			}
+			.layout_padding2 {
+			    padding: 25px 0;
+			}
 	</style>
 
 </head>
@@ -57,24 +60,7 @@
       <div class="header_top">
         <div class="container">
           <div class="contact_nav">
-            <a href="">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>
-                Call : +01 123455678990
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              <span>
-                Email : demo@gmail.com
-              </span>
-            </a>
-            <a href="https://www.google.com/maps/dir//HOSPITAL+MORE,+TAMLUK,+PURBA+MEDINIPUR,+MEDINIPUR,+West+Bengal+721636/@22.2874998,87.835094,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3a0294691f80c849:0x6290d9eadaa4b731!2m2!1d87.9174956!2d22.2875206?entry=ttu">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>
-                Location
-              </span>
-            </a>
+            
           </div>
         </div>
       </div>
@@ -171,34 +157,18 @@
   </section>
 
   <!-- end about section -->
-
-
-  <!-- info section -->
-  <!-- <section class="info_section ">
+<section class="info_section ">
     <div class="container">
-      <div class="info_top">
-        <div class="info_logo">
-          <a href="">
-            <img src="images/logo.png" alt="">
-          </a>
-        </div>
-        <div class="info_form">
-          <form action="">
-            <input type="email" placeholder="Your email">
-            <button>
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </div> -->
-      <!-- <div class="info_bottom layout_padding2">
+     
+        
+      <div class="info_bottom layout_padding2">
         <div class="row info_main_row">
           <div class="col-md-6 col-lg-3">
             <h5>
               Address
             </h5>
             <div class="info_contact">
-              <a href="">
+              <a href="https://www.google.com/maps/dir//HOSPITAL+MORE,+TAMLUK,+PURBA+MEDINIPUR,+MEDINIPUR,+West+Bengal+721636/@22.2874998,87.835094,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3a0294691f80c849:0x6290d9eadaa4b731!2m2!1d87.9174956!2d22.2875206?entry=ttu">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span>
                   Location
@@ -217,20 +187,7 @@
                 </span>
               </a>
             </div>
-            <div class="social_box">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-            </div>
+           
           </div>
           <div class="col-md-6 col-lg-3">
             <div class="info_links">
@@ -238,24 +195,42 @@
                 Useful link
               </h5>
               <div class="info_links_menu">
-                <a href="index.html">
+                <a class="active" th:href="@{index}">
                   Home
                 </a>
-                <a class="active" href="about.html">
+                <a th:href="@{about}">
                   About
                 </a>
-                <a href="treatment.html">
-                  Treatment
+                <a th:href="@{gallary}">
+                  Gallary
                 </a>
-                <a href="doctor.html">
-                  Doctors
-                </a>
-                <a href="testimonial.html">
-                  Testimonial
-                </a>
-                <a href="contact.html">
+                <a th:href="@{feedback}">
                   Contact us
                 </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="info_links">
+              <h5>
+                Domain
+              </h5>
+              <div class="info_links_menu">
+                 
+                  Medical
+                 <br>
+                 <br>
+                  Diagonastic test
+                
+               <br>
+                 <br>
+                  Pharmacy
+                
+                <br>
+                 <br>
+                  Medicine
+                
               </div>
             </div>
           </div>
@@ -269,63 +244,55 @@
                   <img src="images/post1.jpg" alt="">
                 </div>
                 <p>
-                  Normal
-                  distribution
+                  Monitoring
                 </p>
               </div>
-              <div class="post_box">
-                <div class="img-box">
-                  <img src="images/post2.jpg" alt="">
-                </div>
-                <p>
-                  Normal
-                  distribution
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="info_post">
-              <h5>
-                News
-              </h5>
               <div class="post_box">
                 <div class="img-box">
                   <img src="images/post3.jpg" alt="">
                 </div>
                 <p>
-                  Normal
-                  distribution
+                  Advicing
                 </p>
               </div>
-              <div class="post_box">
-                <div class="img-box">
-                  <img src="images/post4.png" alt="">
-                </div>
-                <p>
-                  Normal
-                  distribution
-                </p>
-              </div>
+             
             </div>
           </div>
+          
+              
+              
+            
+          
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
+  <!-- end info_section -->
+
+
+
   <!-- end info_section -->
 
 
   <!-- footer section -->
-  <!-- <footer class="footer_section">
+  <footer class="footer_section">
     <div class="container">
       <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
+        &copy;  All Rights Reserved By
+        <a href="https://html.design/">Anindita Manna</a>
       </p>
     </div>
-  </footer> -->
+  </footer>
+
   <!-- footer section -->
+  
+ 
+  
+  <!-- footer section -->
+
+  <!-- jQery -->
+
+ 
 
   <!-- jQery -->
   <script src="js/jquery-3.4.1.min.js"></script>
