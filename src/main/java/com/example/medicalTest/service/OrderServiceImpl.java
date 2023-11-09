@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Override
 	public Order addOrder(Order order) {
-		//System.out.println("DATA------> "+order.getPa().getPatient_id());
+	
 		return or.save(order);
 	}
 	

@@ -149,7 +149,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <form th:action="@{/addOrder}"  th:method="post">
+          <form th:action="@{/addOrder}"  th:method="post" enctype="multipart/form-data">
             <h4>
               BOOK <span>Test APPOINTMENT</span>
             </h4>
@@ -188,10 +188,12 @@
                 
               </div>
               
+              
               <div class="mb-3">
-          <label for="formFileMultiple" class="form-label">Upload your Prescription</label>
-          <input class="form-control" type="file" id="formFileMultiple" multiple>
-        </div>
+		          <label for="formFileMultiple" class="form-label">Upload your Prescription</label>
+		          <input class="form-control" name="imageFile" type="file" id="formFileMultiple" multiple onchange="previewImages()">
+		        </div>
+               
                
               
               <div class="mb-3">
@@ -211,8 +213,15 @@
               
             </div>
             
-
-            
+<br>
+<br>
+       
+    <div th:if="${successBooking}">
+				<img th:src="|data:image/jpeg;base64,${imageid}|" alt="Order image" height="500px" width="800px"/>
+			 
+			</div> 
+			
+			 <div id="imagePreviewContainer"></div>
           
           </form>
           <div>
@@ -223,162 +232,7 @@
     </div>
   </section>
 
-  <!-- end about section -->
-
-
-  <!-- info section -->
-  <!-- <section class="info_section ">
-    <div class="container">
-      <div class="info_top">
-        <div class="info_logo">
-          <a href="">
-            <img src="images/logo.png" alt="">
-          </a>
-        </div>
-        <div class="info_form">
-          <form action="">
-            <input type="email" placeholder="Your email">
-            <button>
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </div> -->
-      <!-- <div class="info_bottom layout_padding2">
-        <div class="row info_main_row">
-          <div class="col-md-6 col-lg-3">
-            <h5>
-              Address
-            </h5>
-            <div class="info_contact">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call +01 1234567890
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope"></i>
-                <span>
-                  demo@gmail.com
-                </span>
-              </a>
-            </div>
-            <div class="social_box">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="info_links">
-              <h5>
-                Useful link
-              </h5>
-              <div class="info_links_menu">
-                <a href="index.html">
-                  Home
-                </a>
-                <a class="active" href="about.html">
-                  About
-                </a>
-                <a href="treatment.html">
-                  Treatment
-                </a>
-                <a href="doctor.html">
-                  Doctors
-                </a>
-                <a href="testimonial.html">
-                  Testimonial
-                </a>
-                <a href="contact.html">
-                  Contact us
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="info_post">
-              <h5>
-                LATEST POSTS
-              </h5>
-              <div class="post_box">
-                <div class="img-box">
-                  <img src="images/post1.jpg" alt="">
-                </div>
-                <p>
-                  Normal
-                  distribution
-                </p>
-              </div>
-              <div class="post_box">
-                <div class="img-box">
-                  <img src="images/post2.jpg" alt="">
-                </div>
-                <p>
-                  Normal
-                  distribution
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="info_post">
-              <h5>
-                News
-              </h5>
-              <div class="post_box">
-                <div class="img-box">
-                  <img src="images/post3.jpg" alt="">
-                </div>
-                <p>
-                  Normal
-                  distribution
-                </p>
-              </div>
-              <div class="post_box">
-                <div class="img-box">
-                  <img src="images/post4.png" alt="">
-                </div>
-                <p>
-                  Normal
-                  distribution
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-  <!-- end info_section -->
-
-
-  <!-- footer section -->
-  <!-- <footer class="footer_section">
-    <div class="container">
-      <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
-      </p>
-    </div>
-  </footer> -->
-  <!-- footer section -->
+ 
 
   <!-- jQery -->
   <script src="js/jquery-3.4.1.min.js"></script>
@@ -402,6 +256,29 @@
 				
 				});
 				
+        function previewImages() {
+            var input = document.getElementById('formFileMultiple');
+            var container = document.getElementById('imagePreviewContainer');
+
+            container.innerHTML = ''; // Clear previous previews
+
+            for (var i = 0; i < input.files.length; i++) {
+                var file = input.files[i];
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var preview = document.createElement('img');
+                    preview.src = e.target.result;
+                    preview.style.maxWidth = '800px';
+                    preview.style.maxHeight = '800px';
+                    container.appendChild(preview);
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
 				
 			</script>
 

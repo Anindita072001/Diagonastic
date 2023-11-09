@@ -1,11 +1,14 @@
 package com.example.medicalTest.entity;
 
 import java.sql.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -36,6 +39,11 @@ public class Order {
 	@JoinColumn(name="patient_id")
 	private Patient pa ;
 	
+	
+	
+	@Lob
+	@Column(columnDefinition = "LONGBLOB")
+	private byte[] image;
 	
 
 

@@ -1,5 +1,6 @@
 package com.example.medicalTest.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.medicalTest.entity.Order;
 
 import com.example.medicalTest.service.OrderService;
-
-import jakarta.validation.Valid;
-
+import java.util.Base64;
 
 @Controller
 //@RestController
@@ -25,25 +28,28 @@ public class OrderController {
 OrderService os;
 
 @PostMapping("/addOrder")
-public String addOrder(@Valid Order order,Model model) {
+public String addOrder(@ModelAttribute Order order,
+						@RequestParam("test_name") String test_name,
+						@RequestParam("order_date") Date order_date,
+						@RequestParam("imageFile") MultipartFile imageFile,
+						Model model) {
 
-//	 try {
-//		
-//		 os.addOrder(order);
-//		 int pid = order.getPa().getPatient_id();
-//		model.addAttribute("sucessBooking", true);
-//		model.addAttribute("pid", pid);
-//		 return "testbook";
-//       } catch (Exception e) {
-//    	   System.out.println("error" +e);
-//           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//    	   return "testbook";
-//           
-//       }
+
+	try {
+		order.setTest_name(test_name);
+		order.setOrder_date(order_date);
+		order.setImage(imageFile.getBytes());
+	}catch( Exception e) {
+	
+	}
+	
 	
 	os.addOrder(order);
 	model.addAttribute("successBooking",true);
+	String base64ImageData = Base64.getEncoder().encodeToString(order.getImage());
+	model.addAttribute("imageid", base64ImageData);
 	return "index";
+//	return "redirect:/testbook" + order.getOrder_id();
 }
 
 
