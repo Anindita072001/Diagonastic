@@ -149,7 +149,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <form th:action="@{/addOrder}"  th:method="post" enctype="multipart/form-data">
+          <form th:action="@{/addOrder}"  th:method="post" enctype="multipart/form-data" onsubmit="return validateForm()" name="yourFormName">
             <h4>
               BOOK <span>Test APPOINTMENT</span>
             </h4>
@@ -160,7 +160,7 @@
               <div class="form-group col-lg-4">
                 <label for="inputTest-name">Select Test-name</label>
                
-                <select required name="test_name" class="form-control" onchange="validatetestname()">
+                <select required name="test_name" class="form-control" onchange="validateForm()">
                  <option disabled selected>Choose option</option>
                                 <option value="Biopsy" >Biopsy</option>
                                 <option>Colonoscopy</option>
@@ -177,21 +177,23 @@
                                         
                                                          
                                 </select>
-               
+               <div id="testNameError" class="error-message"></div>
               </div>
               
              
  
               <div class="form-group col-lg-4">
                 <label for="Date">Select a date:</label>
-               <input type="date" class="form-control" id="selectedDate" name="order_date" required>
+               <input type="date" class="form-control" id="selectedDate" name="order_date" required  onchange="validateForm()">
+                <div id="dateError" class="error-message"></div>
                 
               </div>
               
               
               <div class="mb-3">
 		          <label for="formFileMultiple" class="form-label">Upload your Prescription</label>
-		          <input class="form-control" name="imageFile" type="file" id="formFileMultiple" multiple onchange="previewImages()">
+		          <input required class="form-control" name="imageFile" type="file" id="formFileMultiple" multiple onchange="validateForm();  previewImages();">
+		        <div id="imageFileError" class="error-message"></div>
 		        </div>
                
                
@@ -209,7 +211,7 @@
              
             
             <div class="btn-box">
-              <button   type="submit" class="btn" id="popup">Submit Now</button>
+              <button   type="submit" class="btn" id="popup" disabled>Submit Now</button>
               
             </div>
             
@@ -280,6 +282,45 @@
             }
         }
 				
+				
+				
+				  function validateForm() {
+				          
+				            var testName = document.forms["yourFormName"]["test_name"].value;
+				
+				          
+				            var imageFile = document.forms["yourFormName"]["imageFile"].value;
+				            
+				            var date1 = document.forms["yourFormName"]["order_date"].value;
+				
+				    
+				            document.getElementById("testNameError").innerHTML = "";
+				            document.getElementById("imageFileError").innerHTML = "";
+				            document.getElementById("dateError").innerHTML = "";
+				
+				            if (testName === "Choose option") {
+				                document.getElementById("testNameError").innerHTML = "Please select a test name.";
+				                document.getElementById("popup").disabled = true;
+				                return false;
+				            }
+				
+				            if (imageFile === "") {
+				                document.getElementById("imageFileError").innerHTML = "Please upload a prescription.";
+				                 document.getElementById("popup").disabled = true;
+				                return false;
+				            }
+				            
+				             if (date1 === "") {
+				                document.getElementById("dateError").innerHTML = "Please select a date.";
+				                document.getElementById("popup").disabled = true;
+				                return false;
+				            }
+				            
+								 document.getElementById("popup").disabled = false;
+				            return true;
+				        }
+				        
+				     
 			</script>
 
 

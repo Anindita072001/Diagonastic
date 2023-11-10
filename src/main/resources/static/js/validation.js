@@ -5,9 +5,11 @@ function validateName() {
 
     if (name.length <= 5) {
         nameError.textContent = "Invalid Name.";
+       document.getElementById("submitButton").disabled = true;
         return false; 
     } else {
         nameError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
         return true;
     }
 }
@@ -19,11 +21,11 @@ function validateGender() {
 
     if (selectedGender === "") {
         genderError.textContent = "Gender is required.";
-        
+         document.getElementById("submitButton").disabled = true;
         return false;
     } else {
         genderError.textContent = "";
- 
+ 		document.getElementById("submitButton").disabled = false;
         return true;
     }
 }
@@ -36,10 +38,12 @@ function validateAge() {
     if (isNaN(age) || age < 1 || age>200) {
         ageError.textContent = "Invalid age.";
         ageInput.classList.add("error");
+         document.getElementById("submitButton").disabled = true;
         return false;
     } else {
         ageError.textContent = "";
         ageInput.classList.remove("error");
+        document.getElementById("submitButton").disabled = false;
         return true;
     }
 }
@@ -53,10 +57,11 @@ function validatePhoneNumber() {
 
     if (phoneNumber.length !=10 ) {
         phoneError.textContent = "Invalid Phone number ";
-       
+        document.getElementById("submitButton").disabled = true;
         return false;
     } else {
         phoneError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
         
         return true;
     }
@@ -64,7 +69,7 @@ function validatePhoneNumber() {
 
 
 function validateEmail() {
-    const emailInput = document.querySelector('input[name="email_id"]');
+    const emailInput = document.querySelector('input[name="emailId"]');
     const emailError = document.getElementById("emailError");
     const email = emailInput.value.trim();
 
@@ -72,13 +77,16 @@ function validateEmail() {
 
     if (email === "") {
         emailError.textContent = "Email is required.";
+         document.getElementById("submitButton").disabled = true;
         return false;
     } else if (!emailRegex.test(email)) {
         emailError.textContent = "Invalid email address.";
+         document.getElementById("submitButton").disabled = true;
         emailInput.classList.add("error");
         return false;
     } else {
         emailError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
         return true;
     }
 }
@@ -91,9 +99,11 @@ function validateAddress() {
 
     if (address === "") {
         addressError.textContent = "Invalid Address";
+         document.getElementById("submitButton").disabled = true;
         return false;
     } else {
         addressError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
         return true;
     }
 }
@@ -106,14 +116,16 @@ function validatePassword() {
 
     if (password.length<6) {
         passwordError.textContent = "Invalid password";
-
+		 document.getElementById("submitButton").disabled = true;
         return false;
     } else {
         passwordError.textContent = "";
-      
+      document.getElementById("submitButton").disabled = false;
         return true;
     }
 }
+
+
 
 
 function validateForm() {
@@ -126,15 +138,9 @@ function validateForm() {
     const isAddressValid = validateAddress();
     const isPasswordValid = validatePassword();
 
-    const isFormValid = isNameValid && isGenderValid && isAgeValid && isPhoneNumberValid && isEmailValid && isAddressValid && isPasswordValid;
+    const isFormValid = isNameValid && isGenderValid && isAgeValid && isEmailValid && isPhoneNumberValid && isAddressValid && isPasswordValid;
 
-    const submitButton = document.getElementById("submitButton");
-
-    if (isFormValid) {
-        submitButton.disabled = false; 
-    } else {
-        submitButton.disabled = true; 
-    }
+    
 
     return isFormValid;
 }
