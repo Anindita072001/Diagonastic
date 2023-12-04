@@ -108,36 +108,13 @@
                     <a class="nav-link" th:href="@{gallary}">Gallary</a>
                   </li> 
                   <li class="nav-item">
-                    <a class="nav-link" th:href="@{profile}">your test</a>
-                  </li> 
-                  
-                  <li class="nav-item">
                     <a class="nav-link" th:href="@{feedback}">Feedback</a>
                   </li>
+                  
                 </ul>
               </div>
 
-              <div class="quote_btn-container">
-				  
-				   <a th:if="${isLogin}">
-	                  <i class="fa fa-user" aria-hidden="true"></i>
-	                  <span th:text="${user.patient_name}">
-	                    
-	                  </span>
-	                </a>
-				  
-				  
-                <a th:href="@{login}" th:unless="${isLogin}">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <span>
-                    Login
-                  </span>
-                </a>
-                
-                
               
-                
-              </div>
             </div>
           </nav>
         </div>
@@ -151,90 +128,34 @@
 
    <section class="book_section layout_padding">
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <form th:action="@{/addOrder}"  th:method="post" enctype="multipart/form-data" onsubmit="return validateForm()" name="yourFormName">
-            <h4>
-              BOOK <span>Test APPOINTMENT</span>
-            </h4>
-            <div class="form-row ">
-              
-            
-              
-              <div class="form-group col-lg-4">
-                <label for="inputTest-name">Select Test-name</label>
-               
-                <select required name="test_name" class="form-control" onchange="validateForm()">
-                 <option disabled selected>Choose option</option>
-                                <option value="Biopsy" >Biopsy</option>
-                                <option>Colonoscopy</option>
-                                <option>CT scan</option>
-                                 <option>Electrocardiogram (ECG)</option>
-                                  <option>Electroencephalogram (EEG)</option>
-                                   <option>Gastroscopy</option>
-                                    <option>Eye tests</option>
-                                     <option>Hearing test</option>
-                                      <option>MRI scan</option>
-                                       <option>Ultrasound</option>
-                                        <option>CT scan</option>
-                                         <option>X-rays</option>
-                                        
-                                                         
-                                </select>
-               <div id="testNameError" class="error-message"></div>
-              </div>
-              
-             
- 
-              <div class="form-group col-lg-4">
-                <label for="Date">Select a date:</label>
-               <input type="date" class="form-control" id="selectedDate" name="order_date" required  onchange="validateForm()">
-                <div id="dateError" class="error-message"></div>
-                
-              </div>
-              
-              
-              <div class="mb-3">
-		          <label for="formFileMultiple" class="form-label">Upload your Prescription</label>
-		          <input required class="form-control" name="imageFile" type="file" id="formFileMultiple" accept="image/*" multiple onchange="validateForm();  previewImages();">
-		        <div id="imageFileError" class="error-message"></div>
-		        </div>
-               
-               
-              
-              <div class="mb-3">
-         
-           <input  class="form-control" type="hidden" name="pa" th:value="${user?.patient_id}">
-          <!--
-          <input class="form-control" type="file" id="formFileMultiple" multiple>
-          -->
-        </div>
-            </div>
-            
-            
-             
-            
-            <div class="btn-box">
-              <button   type="submit" class="btn" id="popup" disabled>Submit Now</button>
-              
-            </div>
-            
-<br>
-<br>
-       
-    <div th:if="${successBooking}">
-				<img th:src="|data:image/jpeg;base64,${imageid}|" alt="Order image" height="500px" width="800px"/>
-			 
-			</div> 
-			
-			 <div id="imagePreviewContainer"></div>
-          
-          </form>
-          <div>
-			  
-		  </div>
-        </div>
-      </div>
+     <table class="table">
+	<H3>Test Details</H3>
+	<!-- <h6>Customer name: <span th:text="${session.user}"></span></h6> -->
+
+  <thead>
+    <tr>
+		<th scope="col">Patient name</th>
+	  <th scope="col">Test Id</th>
+      <th scope="col">Test Name</th>
+      <th scope="col">Test Date</th>
+      <th scope="col">Prescription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each ="booking : ${testDetailsList}">
+		
+		<td th:if="${booking.pa.patient_id == session.patientID}" th:text="${booking.pa.patient_name}"></td>
+		
+	<td th:if="${booking.pa.patient_id == session.patientID}" th:text="${booking.order_id}"></td>
+      <td th:if="${booking.pa.patient_id == session.patientID}" th:text="${booking.test_name}"></td>
+      <td th:if="${booking.pa.patient_id == session.patientID}" th:text="${booking.order_date}"></td>
+      
+     <td th:if="${booking.pa.patient_id == session.patientID}" ><img th:src="|data:image/jpeg;base64,${booking.byte64}|"
+      style="width: 100px;height: 85px;"></td> 
+      
+    </tr>
+  </tbody>
+</table>
     </div>
   </section>
 

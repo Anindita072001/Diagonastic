@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Webcontroller {
 	
+	
+		
+	
+	
 	@RequestMapping("/index")
 	public String index(){
 		
@@ -53,6 +57,12 @@ public class Webcontroller {
 		
 	}
 	
+//	@GetMapping("/profile")
+//	public String profile() {
+//		return "profile";
+//		
+//	}
+	
 	@GetMapping("/feedback")
 	public String feedback() {
 		return "feedback";
@@ -64,7 +74,7 @@ public class Webcontroller {
 //		return "testbook";
 //		
 //	}
-
+	
 	
 	@PostMapping("/testbook")
     public String userPage(Model model) {
@@ -83,12 +93,15 @@ public class Webcontroller {
         
     }
 	
-//	
-//	@GetMapping("/testbook")
+	
+//	@GetMapping("/getOrder")
 //	public String testbook() {
-//		return "testbook";
+//		return "getOrder";
 //		
 //	}
 //	
+	
+	
+	
 	
 }

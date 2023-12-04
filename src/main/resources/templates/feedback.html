@@ -140,16 +140,20 @@
           <div class="form_container">
             <form th:action="@{/addTestname}" th:object="${testname}" method="post">
               <div>
-                <input type="text" name="name" placeholder="Full Name" />
+                <input type="text" id="patient_name" name="name" placeholder="Full Name" required onchange="validateName()" />
+                <span id="nameError" style="color: red;" ></span>
               </div>
               <div>
-                <input type="email" name="emailId" placeholder="Email" />
+                <input type="email" id="patient_email" name="emailId" placeholder="Email" required onchange="validateEmail23()" />
+              <span id="emailError" style="color: red;"></span>
               </div>
               <div>
-                <input type="text" name="phoneNo" placeholder="Phone Number" />
+                <input type="text" name="phoneNo" placeholder="Phone Number" required onchange="validatePhoneNumber12()"/>
+                <span id="phoneError" style="color: red;"></span>
               </div>
               <div>
-                <input type="text" name="message" class="message-box" placeholder="Message" />
+                <input type="text" name="message" class="message-box" placeholder="Message" required onchange="validateMessage()"/>
+                <span id="messageError" style="color: red;"></span>
               </div>
               <div class="btn_box">
                 <button type="submit">
@@ -345,7 +349,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
-
+<script src="js/validation.js"></script>
 
 </body>
 

@@ -1,5 +1,7 @@
 package com.example.medicalTest.controller;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.medicalTest.DTO.OrderDTO;
+import com.example.medicalTest.entity.Order;
 import com.example.medicalTest.entity.Patient;
+import com.example.medicalTest.repository.OrderRepo;
 import com.example.medicalTest.service.PatientService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 @Controller
 //@RestController
@@ -26,11 +33,12 @@ import jakarta.validation.Valid;
 public class PatientController {
 	@Autowired
 	PatientService ts;
-	
+	@Autowired
+	OrderRepo orderRepo;
 	
 	
 	@PostMapping("/addPatient")
-	public ResponseEntity<String> addPatient( @Valid Patient test) {
+	public ResponseEntity<String> addPatient(@Valid Patient test) {
 		
 		 try {
 			 	ts.addPatient(test);
@@ -48,12 +56,15 @@ public class PatientController {
             @RequestParam String email_id,
             @RequestParam String password,
             RedirectAttributes attributes,
-            Model model) {
+            Model model,
+            HttpSession session) {
 		Patient user= ts.loginPatient(email_id);
 
         if (user !=null && user.getPassword().equals(password)) {
         	model.addAttribute("isLogin",true);
         	model.addAttribute("user", user);
+        	session.setAttribute("patientID", user.getPatient_id());
+
             return "testbook";
         } else {
 
@@ -62,6 +73,33 @@ public class PatientController {
             model.addAttribute("error", "invalid credential");
             return "login";
         }
+    }
+	
+	
+	@GetMapping("/profile")
+    public String orderDetails(Model model) {
+        List<Order> orders = orderRepo.findAll();
+        List<OrderDTO> orderDto = new ArrayList<>();
+
+        for (Order order : orders) {
+        	OrderDTO od = new OrderDTO();
+        	od.setOrder_id(order.getOrder_id());
+        	od.setTest_name(order.getTest_name());
+        	od.setOrder_date(order.getOrder_date());
+        	od.setPa(order.getPa());
+        	
+            byte[] imageData = order.getImage();
+            String base64EncodedImage = Base64.getEncoder().encodeToString(imageData);
+            od.setByte64(base64EncodedImage);
+            orderDto.add(od);
+        }
+
+
+        System.out.println(orderDto.get(0));
+        
+        
+    	model.addAttribute("testDetailsList",orderDto);
+    	return "profile";
     }
 	
 //	@GetMapping("/testbook")

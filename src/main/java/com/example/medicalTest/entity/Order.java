@@ -46,7 +46,13 @@ public class Order {
 	private byte[] image;
 	
 
+	public Patient getPatient() {
+        return pa;
+    }
 
+    public void setPatient(Patient patient) {
+        this.pa = patient;
+    }
 
 	
 	

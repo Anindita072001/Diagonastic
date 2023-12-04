@@ -152,4 +152,61 @@ document.getElementById("submitButton").addEventListener("click", function(){
 
 
 
+function validateEmail23() {
+    const emailInput = document.querySelector('input[name="emailId"]');
+    const emailError = document.getElementById("emailError");
+    const email = emailInput.value.trim();
 
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (email === "") {
+        emailError.textContent = "Email is required.";
+         document.getElementById("submitButton").disabled = true;
+        return false;
+    } else if (!emailRegex.test(email)) {
+        emailError.textContent = "Invalid email address.";
+         document.getElementById("submitButton").disabled = true;
+        emailInput.classList.add("error");
+        return false;
+    } else {
+        emailError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
+        return true;
+    }
+}
+
+
+function validatePhoneNumber12() {
+    const phoneInput = document.querySelector('input[name="phoneNo"]');
+    const phoneError = document.getElementById("phoneError");
+    const phoneNumber = phoneInput.value.trim();
+
+    // You can add phone number validation logic here
+
+    if (phoneNumber.length !=10 ) {
+        phoneError.textContent = "Invalid Phone number ";
+        document.getElementById("submitButton").disabled = true;
+        return false;
+    } else {
+        phoneError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
+        
+        return true;
+    }
+}
+
+function validateMessage() {
+    const messageInput = document.querySelector('input[name="message"]');
+    const messageError = document.getElementById("messageError");
+    const message = messageInput.value.trim();
+
+    if (message === "") {
+        messageError.textContent = "Invalid message";
+         document.getElementById("submitButton").disabled = true;
+        return false;
+    } else {
+        messageError.textContent = "";
+        document.getElementById("submitButton").disabled = false;
+        return true;
+    }
+}

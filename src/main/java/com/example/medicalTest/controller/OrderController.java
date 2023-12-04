@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.medicalTest.DTO.OrderDTO;
 import com.example.medicalTest.entity.Order;
 
 import com.example.medicalTest.service.OrderService;
+
+import java.util.ArrayList;
 import java.util.Base64;
 
 @Controller
@@ -46,9 +50,32 @@ public String addOrder(@ModelAttribute Order order,
 	
 	os.addOrder(order);
 	model.addAttribute("successBooking",true);
-	String base64ImageData = Base64.getEncoder().encodeToString(order.getImage());
-	model.addAttribute("imageid", base64ImageData);
-	return "index";
+//	String base64ImageData = Base64.getEncoder().encodeToString(order.getImage());
+//	model.addAttribute("imageid", base64ImageData);
+	
+	   List<Order> orders = os.fetchAllOrder();
+       List<OrderDTO> orderDto = new ArrayList<>();
+
+       for (Order order1 : orders) {
+       	OrderDTO od = new OrderDTO();
+       	od.setOrder_id(order1.getOrder_id());
+       	od.setTest_name(order1.getTest_name());
+       	od.setOrder_date(order1.getOrder_date());
+       	od.setPa(order1.getPa());
+       	
+           byte[] imageData = order1.getImage();
+           String base64EncodedImage = Base64.getEncoder().encodeToString(imageData);
+           od.setByte64(base64EncodedImage);
+           orderDto.add(od);
+       }
+
+
+       System.out.println(orderDto.get(0));
+       
+       
+   	model.addAttribute("testDetailsList",orderDto);
+	
+	return "profile";
 //	return "redirect:/testbook" + order.getOrder_id();
 }
 
